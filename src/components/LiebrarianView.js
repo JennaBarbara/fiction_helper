@@ -1,29 +1,27 @@
 import React,  { useState } from 'react';
 import { connect } from 'react-redux';
 import { addSecretWord } from '../actions/actions';
-import LiebrarianView from './LiebrarianView';
-import './MainPage.css';
+import './LiebrarianView.css';
 import WordInput from './WordInput';
 
 
-class MainPage extends React.Component {
+class LiebrarianView extends React.Component {
 
     render() {
-        return(
+        return (
             <div>
-                <LiebrarianView />
+                <WordInput/>
             </div>
-          
         )
     }
 }
 
 const mapStateToProps = state => ({
-    // todos: state.todos,
+
 });
 
 const mapDispatchToProps = dispatch => ({
     onAddSecretWord: text => dispatch(addSecretWord(text)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(MainPage);
+export default connect(mapStateToProps, mapDispatchToProps)(LiebrarianView);
