@@ -40,8 +40,8 @@ class WordInput extends React.Component {
       }
 
       handleEnter(e) {
-          console.log('jkhsdfkhjsfdkh');
-          console.log(this.state.inputs);
+          console.log(this.state.inputs.join(""));
+          this.props.onAddSecretWord(this.state.inputs.join(""));
 
       }
 
