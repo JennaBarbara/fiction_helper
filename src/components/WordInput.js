@@ -4,10 +4,16 @@ import { addSecretWord } from '../actions/actions';
 import './WordInput.css';
 
 
-class WordInput extends React.Component {
+class WordInput extends React.Component {    
     constructor(props) {
         super(props);
         this.onKeyDown = this.handleInput.bind(this);    
+        this.onEnter = this.handleEnter.bind(this);
+        this.state = {
+            inputs: ['', '', '', '', '']
+        }
+       
+    
     }
 
     handleInput(e) {
@@ -33,15 +39,32 @@ class WordInput extends React.Component {
 
       }
 
+      handleEnter(e) {
+          console.log('jkhsdfkhjsfdkh');
+          console.log(this.state.inputs);
+
+      }
+
+   
     render() {
         return(
-
         <div className="letter-row" >
-            <input className="letter-box" type="text" name='letter-0' guess-input='0' required maxLength = '1' onKeyDown={e => this.onKeyDown(e)}/>
-            <input className="letter-box" type="text" name='letter-1' guess-input='1' required maxLength = '1' onKeyDown={e => this.onKeyDown(e)} />
-            <input className="letter-box" type="text" name='letter-2' guess-input='2' required maxLength = '1' onKeyDown={e => this.onKeyDown(e)} />
-            <input className="letter-box" type="text" name='letter-3' guess-input='3' required maxLength = '1' onKeyDown={e => this.onKeyDown(e)} />
-            <input className="letter-box" type="text" name='letter-4' guess-input='4' required maxLength = '1' onKeyDown={e => this.onKeyDown(e)} />
+            {this.state.inputs.map((input, index) => 
+                <input 
+                    className="letter-box"
+                    type="text" 
+                    defaultValue={input}
+                    key={index}
+                    name={'letter-'+index} 
+                    guess-input={index}
+                    required 
+                    maxLength = '1' 
+                    onKeyDown={e => this.onKeyDown(e)}
+                    onChange={e =>{this.state.inputs[index] = e.target.value} }
+                />
+            )}
+
+            <button className="enter-button" type="button" onClick={e => this.onEnter(e)}>Enter</button>
         </div>
         )
     }
