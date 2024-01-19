@@ -2,6 +2,7 @@ import React,  { useState } from 'react';
 import { connect } from 'react-redux';
 import { addSecretWord } from '../actions/actions';
 import './LiebrarianView.css';
+import WordDisplay from './WordDisplay';
 import WordInput from './WordInput';
 
 
@@ -10,14 +11,21 @@ class LiebrarianView extends React.Component {
     render() {
         return (
             <div>
-                <WordInput/>
+                <WordDisplay
+                    word={this.props.secret_word}
+                />
+      
+            {this.props.guesses.map(guess =>        <WordDisplay word={guess.text} />)} 
+            
+            <WordInput/>
             </div>
         )
     }
 }
 
 const mapStateToProps = state => ({
-
+    secret_word: state.secret_word,
+    guesses: state.guesses
 });
 
 const mapDispatchToProps = dispatch => ({

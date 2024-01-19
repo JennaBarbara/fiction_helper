@@ -5,6 +5,13 @@ export const updateView= text => ({
     payload: { text },
 });
 
+//status actions
+export const UPDATE_STATUS  = 'UPDATE_STATUS';
+export const updateStatus= text => ({
+    type: UPDATE_STATUS,
+    payload: { text },
+});
+
 //secret word actions
 
 export const ADD_SECRET_WORD = 'ADD_SECRET_WORD';
@@ -16,22 +23,17 @@ export const addSecretWord= text => ({
 //guess actions
 
 export const ADD_GUESS  = 'ADD_GUESS';
-export const createTodo = text => ({
+export const addGuess = text => ({
     type: ADD_GUESS,
     payload: { text },
 });
 
 export const MARK_GUESS_LIE = 'MARK_GUESS_LIE';
-export const markTodoAsCompleted = text => ({
+export const markGuessLie = (index, condition)=> ({
     type: MARK_GUESS_LIE,
     payload: { index, condition},
 });
 
 
-//Status actions
-export const UPDATE_STATUS  = 'UPDATE_STATUS';
-export const updateStatus= text => ({
-    type: UPDATE_STATUS,
-    payload: { text },
-});
+
 

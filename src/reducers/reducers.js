@@ -55,11 +55,11 @@ export const guesses = (state = [], action) => {
     switch (type) {
     case ADD_GUESS : {
         const { text } = payload;
-        const newTodo = {
+        const newGuess = {
             text: text,
             lie: {},
         };
-        return state.concat(newTodo);
+        return state.concat(newGuess);
     }
     case MARK_GUESS_LIE: {
         const { index, condition } = payload;
