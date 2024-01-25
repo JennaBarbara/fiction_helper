@@ -13,9 +13,8 @@ export const updateStatus= text => ({
 });
 
 //secret word actions
-
 export const ADD_SECRET_WORD = 'ADD_SECRET_WORD';
-export const addSecretWord= text => ({
+export const addSecretWord = text => ({
     type: ADD_SECRET_WORD,
     payload: { text },
 });

@@ -1,6 +1,6 @@
 import React,  { useState } from 'react';
 import { connect } from 'react-redux';
-import { addSecretWord, addGuess } from '../actions/actions';
+import { addSecretWord, addGuess, updateStatus } from '../actions/actions';
 import './WordInput.css';
 
 
@@ -48,10 +48,12 @@ class WordInput extends React.Component {
           console.log(this.state.inputs.join(""));
           const word = this.state.inputs.join("").toUpperCase();
           if(word.length == 5){
-                if(!this.props.secret_word){
+                if(this.props.status === 'secret_word_input'){
                     this.props.onAddSecretWord(word);
-                } else {
+                    this.props.onUpdateStatus('guess_input');
+                } else if (this.props.status === 'guess_input'){
                     this.props.onAddGuess(word);
+                    this.props.onUpdateStatus('select_lie');
                 }
                 this.setState({
                         inputs: ['', '', '', '', '']
@@ -103,12 +105,14 @@ class WordInput extends React.Component {
 
 const mapStateToProps = state => ({
     secret_word: state.secret_word,
-    guesses: state.guesses
+    guesses: state.guesses,
+    status: state.status
 });
 
 const mapDispatchToProps = dispatch => ({
     onAddSecretWord: text => dispatch(addSecretWord(text)),
-    onAddGuess: text => dispatch(addGuess(text))
+    onAddGuess: text => dispatch(addGuess(text)),
+    onUpdateStatus: text => dispatch(updateStatus(text))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(WordInput);

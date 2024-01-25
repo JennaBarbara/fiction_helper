@@ -4,6 +4,7 @@ import { addSecretWord } from '../actions/actions';
 import './LiebrarianView.css';
 import WordDisplay from './WordDisplay';
 import WordInput from './WordInput';
+import LieSelector from './LieSelector';
 
 
 class LiebrarianView extends React.Component {
@@ -14,12 +15,13 @@ class LiebrarianView extends React.Component {
                 <WordDisplay
                     word={this.props.secret_word}
                 />
-      
+  
             {this.props.guesses.map((guess,index) =>
-                 <WordDisplay word={guess.text} key={'guess-'+index}
+                (this.props.status === 'select_lie' && index === (this.props.guesses.length-1))
+                ? <LieSelector word = {guess.text}></LieSelector>
+                : <WordDisplay word={guess.text} key={'guess-'+index}
             />)} 
-            
-            <WordInput/>
+            {this.props.status !== 'select_lie' && <WordInput/>}
             </div>
         )
     }
@@ -27,7 +29,8 @@ class LiebrarianView extends React.Component {
 
 const mapStateToProps = state => ({
     secret_word: state.secret_word,
-    guesses: state.guesses
+    guesses: state.guesses,
+    status: state.status
 });
 
 const mapDispatchToProps = dispatch => ({
