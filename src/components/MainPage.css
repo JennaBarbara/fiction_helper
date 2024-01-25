@@ -19,6 +19,12 @@
     text-transform: uppercase;
 }
 
+.button-row {
+    display: flex;
+    justify-content: center;
+}
+
+
 .enter-button {
     border: 2px solid gray;
     background-color: LawnGreen;
@@ -28,7 +34,7 @@
     font-weight: 700;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: left;
     cursor: pointer;
 }
 

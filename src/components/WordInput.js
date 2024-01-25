@@ -20,41 +20,52 @@ class WordInput extends React.Component {
     handleInput(e) {
         console.log(e.key);
 
+
         const hasValue = e.target.value !== "";
         const hasSibling = e.target.nextElementSibling;
         const hasSiblingInput = hasSibling && e.target.nextElementSibling.nodeName === "INPUT";
         const hasPreviousSibling = e.target.previousElementSibling;
         const hasPreviousSiblingInput = hasPreviousSibling && e.target.previousElementSibling.nodeName ==="INPUT";
       
-        if ( hasValue && hasSiblingInput ){
-      
+        if( hasPreviousSiblingInput && e.key === 'ArrowLeft' ){
+            e.target.previousElementSibling.focus();
+        }
+        else if( !hasValue && hasPreviousSiblingInput && (e.key === 'Backspace' || e.key === 'ArrowLeft') ){
+            e.target.previousElementSibling.focus();
+        }
+
+        else if (hasValue && hasSiblingInput ){
           e.target.nextElementSibling.focus();
-        
         } 
 
-        if( !hasValue && hasPreviousSiblingInput && (e.key === 'Backspace') ){
-
-            e.target.previousElementSibling.focus();
-
+        else if(e.key === 'Enter') {
+            this.handleEnter(e);
         }
 
       }
 
       handleEnter(e) {
           console.log(this.state.inputs.join(""));
-          if(!this.props.secret_word){
-              this.props.onAddSecretWord(this.state.inputs.join("").toUpperCase());
-          } else {
-            this.props.onAddGuess(this.state.inputs.join("").toUpperCase());
-          }
-        this.setState({
-                inputs: ['', '', '', '', '']
-            });
+          const word = this.state.inputs.join("").toUpperCase();
+          if(word.length == 5){
+                if(!this.props.secret_word){
+                    this.props.onAddSecretWord(word);
+                } else {
+                    this.props.onAddGuess(word);
+                }
+                this.setState({
+                        inputs: ['', '', '', '', '']
+                    });
+          }    
       }
 
       handleChange(e, index) {
         let inputs = [...this.state.inputs];
-        inputs[index] = e.target.value;
+
+        const alphabetRegex = new RegExp(/[A-Za-z]/i);
+        if (alphabetRegex.test(e.target.value)) {
+            inputs[index] = e.target.value; 
+        }
         this.setState({
             inputs: inputs
         });
@@ -65,6 +76,7 @@ class WordInput extends React.Component {
    
     render() {
         return(
+            <div>
         <div className="letter-row" >
             {this.state.inputs.map((input, index, inputs) => 
                 <input 
@@ -80,9 +92,11 @@ class WordInput extends React.Component {
                     onChange={e => this.handleChange(e, index)}
                 />
             )}
-
-            <button className="enter-button" type="button" onClick={e => this.onEnter(e)}>Enter</button>
         </div>
+            <div className="button-row">
+                      <button className="enter-button" type="button" onClick={e => this.onEnter(e)}>Enter</button>
+            </div>
+       </div>
         )
     }
 }

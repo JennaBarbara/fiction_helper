@@ -15,7 +15,9 @@ class LiebrarianView extends React.Component {
                     word={this.props.secret_word}
                 />
       
-            {this.props.guesses.map(guess =>        <WordDisplay word={guess.text} />)} 
+            {this.props.guesses.map((guess,index) =>
+                 <WordDisplay word={guess.text} key={'guess-'+index}
+            />)} 
             
             <WordInput/>
             </div>
